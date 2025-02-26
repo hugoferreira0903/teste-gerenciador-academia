@@ -2,6 +2,8 @@ package com.acad.teste_gerenciador_academia.model;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 import java.util.UUID;

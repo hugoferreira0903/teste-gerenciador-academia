@@ -13,5 +13,6 @@ public interface PessoaService {
 
     List<Pessoa> findAll();
 
+    void deleteById(Long id);
 
 }
