@@ -1,6 +1,7 @@
 package com.acad.teste_gerenciador_academia.service.implement;
 
 
+import com.acad.teste_gerenciador_academia.controller.exception.PessoaException;
 import com.acad.teste_gerenciador_academia.model.Pessoa;
 import com.acad.teste_gerenciador_academia.repository.PessoaRepository;
 import com.acad.teste_gerenciador_academia.service.PessoaService;
@@ -26,6 +27,19 @@ public class PessoaServiceImplement implements PessoaService {
 
     @Override
     public Pessoa create(Pessoa pessoaToCreate) {
+
+        if (pessoaToCreate.getCpf() == null || pessoaToCreate.getCpf().trim().isEmpty()) {
+            throw new PessoaException("O CPF não pode ser nulo ou vazio");
+        }
+
+        if (pessoaToCreate.getCpf().length() != 11) {
+            throw new PessoaException("O CPF deve conter exatamente 11 dígitos");
+        }
+
+        if (pessoaRepository.existsByCpf(pessoaToCreate.getCpf())) {
+            throw new PessoaException("O CPF já está registrado");
+        }
+
         return pessoaRepository.save(pessoaToCreate);
     }
 
@@ -37,7 +51,7 @@ public class PessoaServiceImplement implements PessoaService {
     @Override
     public void deleteByCpf(String cpf) {
         if(!pessoaRepository.existsByCpf(cpf)){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Erro: Pessoa não encontrada!");
+            throw new PessoaException("cpf nao encontrado");
         }
         pessoaRepository.deleteById(cpf);
     }
