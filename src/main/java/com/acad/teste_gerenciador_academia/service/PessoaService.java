@@ -1,5 +1,6 @@
 package com.acad.teste_gerenciador_academia.service;
 
+
 import com.acad.teste_gerenciador_academia.model.Pessoa;
 
 
@@ -7,12 +8,12 @@ import java.util.List;
 
 public interface PessoaService {
 
-    Pessoa findById(Long id);
+    Pessoa findByCpf(String cpf);
 
     Pessoa create(Pessoa pessoaToCreate);
 
     List<Pessoa> findAll();
 
-    void deleteById(Long id);
+    void deleteByCpf(String cpf);
 
 }

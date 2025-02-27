@@ -1,5 +1,6 @@
 package com.acad.teste_gerenciador_academia.controller;
 
+
 import com.acad.teste_gerenciador_academia.DTO.PessoaInputDTO;
 import com.acad.teste_gerenciador_academia.DTO.PessoaOutputDTO;
 import com.acad.teste_gerenciador_academia.model.Pessoa;
@@ -16,10 +17,9 @@ import java.util.List;
 @RequestMapping("/pessoa")
 public class PessoaController {
 
-
     private final PessoaService pessoaService;
 
-    public PessoaController (PessoaService pessoaService){
+    public PessoaController(PessoaService pessoaService) {
         this.pessoaService = pessoaService;
     }
 
@@ -30,33 +30,31 @@ public class PessoaController {
         return ResponseEntity.ok(pessoasDTO);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteById(@PathVariable Long id) {
-        pessoaService.deleteById(id);
+    @DeleteMapping("/{cpf}")
+    public ResponseEntity<String> deleteById(@PathVariable String cpf) {
+        pessoaService.deleteByCpf(cpf);
         return ResponseEntity.ok("pessoa deletada com sucesso!");
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<PessoaOutputDTO> findById(@PathVariable(value = "id") Long id){
-        var pessoa = pessoaService.findById(id);
+    @GetMapping("/{cpf}")
+    public ResponseEntity<PessoaOutputDTO> findById(@PathVariable(value = "cpf") String cpf){
+        var pessoa = pessoaService.findByCpf(cpf);
         return ResponseEntity.ok(PessoaOutputDTO.fromEntity(pessoa));
     }
 
     @PostMapping
-    public ResponseEntity<PessoaOutputDTO> create(@RequestBody @Valid PessoaInputDTO PessoaInputDTO) {
+    public ResponseEntity<PessoaOutputDTO> create(@RequestBody @Valid PessoaInputDTO pessoaInputDTO) {
 
-        Pessoa pessoaToCreate = PessoaInputDTO.toEntity();
+        Pessoa pessoaToCreate = pessoaInputDTO.toEntity();
 
         Pessoa pessoaCreated = pessoaService.create(pessoaToCreate);
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(pessoaCreated.getId())
+                .path("/{cpf}")
+                .buildAndExpand(pessoaCreated.getCpf())
                 .toUri();
 
         return ResponseEntity.created(location).body(PessoaOutputDTO.fromEntity(pessoaCreated));
     }
-
-
 }

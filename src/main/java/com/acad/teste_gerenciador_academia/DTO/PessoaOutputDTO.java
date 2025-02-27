@@ -10,22 +10,21 @@ import java.time.LocalDate;
 
 public record PessoaOutputDTO(
 
-        Long id,
-
-        @NotBlank(message = "o nome nao pode ser vazio")
-        String nome,
-
-        @NotBlank(message = "o cpf nao pode ser vazio")
-        @Size(min = 11, max = 11, message = "o cpf tem que ter exatamente 11 caracteres")
+        @NotBlank(message = "O CPF não pode ser vazio")
+        @Size(min = 11, max = 11, message = "O CPF tem que ter exatamente 11 caracteres")
         @Pattern(regexp = "\\d{11}", message = "O CPF deve conter apenas números.")
         String cpf,
 
-        @NotNull(message = "a data nao pode ser vazio")
-        LocalDate dataNascimento) {
+        @NotBlank()
+        String nome,
+
+        @NotNull(message = "A data de nascimento não pode ser vazia")
+        LocalDate dataNascimento
+
+) {
 
     public static PessoaOutputDTO fromEntity(Pessoa pessoa) {
-        return new PessoaOutputDTO(pessoa.getId(), pessoa.getNome(), pessoa.getCpf(), pessoa.getDataNascimento());
+        return new PessoaOutputDTO(pessoa.getCpf(), pessoa.getNome(),  pessoa.getDataNascimento());
     }
-
 
 }
