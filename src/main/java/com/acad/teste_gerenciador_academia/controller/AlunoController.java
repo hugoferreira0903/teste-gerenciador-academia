@@ -41,7 +41,7 @@ public class AlunoController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteById(@PathVariable Long id) {
         alunoService.deleteById(id);
-        return ResponseEntity.ok("pessoa deletada com sucesso!");
+        return ResponseEntity.ok("aluno deletado com sucesso!");
     }
 
 

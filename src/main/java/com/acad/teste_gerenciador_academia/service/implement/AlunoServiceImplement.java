@@ -1,9 +1,7 @@
 package com.acad.teste_gerenciador_academia.service.implement;
 
 import com.acad.teste_gerenciador_academia.controller.exception.AlunoException;
-import com.acad.teste_gerenciador_academia.controller.exception.PessoaException;
 import com.acad.teste_gerenciador_academia.model.Aluno;
-import com.acad.teste_gerenciador_academia.model.Pessoa;
 import com.acad.teste_gerenciador_academia.repository.AlunoRepository;
 import com.acad.teste_gerenciador_academia.service.AlunoService;
 import org.springframework.http.HttpStatus;

@@ -3,7 +3,6 @@ package com.acad.teste_gerenciador_academia.DTO;
 import com.acad.teste_gerenciador_academia.model.Pessoa;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
