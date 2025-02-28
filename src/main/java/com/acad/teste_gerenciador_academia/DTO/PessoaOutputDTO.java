@@ -12,7 +12,6 @@ public record PessoaOutputDTO(
 
         @NotBlank(message = "O CPF não pode ser vazio")
         @Size(min = 11, max = 11, message = "O CPF tem que ter exatamente 11 caracteres")
-        @Pattern(regexp = "\\d{11}", message = "O CPF deve conter apenas números.")
         String cpf,
 
         @NotBlank()

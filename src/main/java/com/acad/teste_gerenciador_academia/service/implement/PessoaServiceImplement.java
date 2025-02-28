@@ -22,7 +22,7 @@ public class PessoaServiceImplement implements PessoaService {
 
     @Override
     public Pessoa findByCpf(String cpf) {
-        return pessoaRepository.findById(cpf).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Registro não encontrado"));
+        return pessoaRepository.findById(cpf).orElseThrow(() -> new PessoaException("Pessoa nao encontrada"));
     }
 
     @Override
@@ -34,6 +34,10 @@ public class PessoaServiceImplement implements PessoaService {
 
         if (pessoaToCreate.getCpf().length() != 11) {
             throw new PessoaException("O CPF deve conter exatamente 11 dígitos");
+        }
+
+        if (!pessoaToCreate.getCpf().matches("\\d{11}")) {
+            throw new PessoaException("O CPF deve conter apenas números.");
         }
 
         if (pessoaRepository.existsByCpf(pessoaToCreate.getCpf())) {
